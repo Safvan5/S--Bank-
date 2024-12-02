@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+    <!-- css -->
+  <style>
+    body{
+    background-image: 
+                
+                
+                url('https://cdn.pixabay.com/photo/2019/09/30/15/30/credit-4516067_1280.jpg');
+                background-repeat: no-repeat ; 
+                background-size: cover;
+               
+}
+header{
+   
+    width: 100%;
+}
+.h,p{
+    text-align: center;
+    color: white;
+}
+.hd{
+    background-color: grey;
+    margin-top: 30px;
+}
+.navbar{
+    background-color:rgb(0, 188, 251) ;
+}
+.a{
+    color: white;
+}
+.row{
+    margin-top: 100px;
+     width: 1400px;
+     height: 300px;
+}
+.col{
+    text-align: center;
+    margin-left: 130px;
+    
+  border-radius: 15px;
+   background: linear-gradient(rgba(235, 222, 222, 0.5), rgba(196, 196, 222, 0.5));
+}
+.col div{
+    margin-top: 20px;
+   
+}
+input{
+    border-radius: 15px;
+    width: 260px;
+    height: 40px;
+}
+.btn{
+    border-radius: 15px;
+    width: 100px;
+   
+}
+
+form,h1{
+    margin-top: 30px;
+}
+  </style>
+
+  <title>User</title>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg ">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="navbar-brand" href="#"><img
+              src="https://www.pngitem.com/pimgs/m/531-5313435_bank-png-free-download-vector-bank-logo-png.png"
+              style=" width: 60px; border-radius: 50%;" alt=""></a>
+              <a class="nav-link active" aria-current="page" href="#">
+                <h2 style="color: white;">S Bank</h2>
+            </a>
+           
+      
+          </div>
+        </div>
+      </div>
+      <a class="nav-link active mx-3" aria-current="page" href="index.html" style="color: white;">Home</a>
+      <!-- <a class="nav-link" href="./registration.html" style="color: white;">Features</a> -->
+      <a class="nav-link mx-3" href="#" style="color: white;">About</a>
+      <a style="text-decoration: none; color: white;" onclick="logout()">
+      <button class="btn btn-danger m-3">Logout</button></a>
+    </nav>
+  </header>
+  <div class="hd">
+    <h1 class="h">Welcome User</h1>
+    <p>Online Banking Services</p>
+  </div>
+
+  <!-- deposit.... -->
+  <div class="row">
+    <div class="col" style="width: 500px; border-color: white;">
+      <h1>Deposite</h1>
+      <form action="">
+        <div>
+          <input type="number" id="deposit_amount" placeholder="Enter your amount">
+        </div>
+        <div>
+          <input type="password" id="d_pass" placeholder="Enter your password">
+        </div>
+        <button class="btn btn-success mt-3" onclick="deposite()" type="button">Deposite</button>
+        <div id="Deposite_Balance">
+        </div>
+      </form>
+    </div>
+
+    <!-- withdraw... -->
+    <div class="col">
+      <h1>Withdraw</h1>
+      <form action="">
+        <div>
+          <input type="number" id="withdraw_amount" placeholder="Enter your amount">
+        </div>
+        <div>
+          <input type="password" id="w_pass" placeholder="Enter your password">
+        </div>
+        <button class="btn btn-success mt-3" type="button" onclick="withdraw()">Withdraw</button>
+        <div id="Withdraw_Balance"></div>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- script -->
+  <script>
+    
+function deposite(){
+     let logg=localStorage.getItem('loggedAcNo');
+     let search=JSON.parse(localStorage.getItem(logg))
+    const pass=document.getElementById('d_pass').value;
+    let depositeAmount=parseFloat(document.getElementById('deposit_amount').value);
+//     console.log(logg);
+    if(pass==''){
+     alert('Please enter details...')
+    }
+     else if(search.password===pass){
+          if(depositeAmount<=0){
+               alert('Give correct amount...')
+          }
+          else{
+        search.balance+=depositeAmount;
+        localStorage.setItem(logg,JSON.stringify(search))
+        alert('Deposited successfully...')
+        console.log(search.balance);
+        Deposite_Balance.innerHTML=`
+        <p><h2 style="color: rgb(92, 31, 11);">Current Balance : ${search.balance}</h2></p>
+        `;
+          }
+     }
+     else{
+          alert("Incorrect password")
+     }
+}
+function withdraw(){
+     let logg=localStorage.getItem('loggedAcNo');
+     let search=JSON.parse(localStorage.getItem(logg))
+     const pass=document.getElementById('w_pass').value;
+     let withdrawAmount=parseFloat(document.getElementById('withdraw_amount').value);
+
+     if(pass==''||withdrawAmount==''){
+          alert('Please enter details...')
+     }
+     else if(search.password===pass){
+        if(withdrawAmount>search.balance){
+          alert('Insufficient balance...')
+        }
+        else if(withdrawAmount<=0){
+          alert('Give correct amount...')
+        }
+        else{
+        search.balance-=withdrawAmount;
+        localStorage.setItem(logg,JSON.stringify(search))
+          alert('Withdrawed successfully...')
+          console.log(search.balance);
+          Withdraw_Balance.innerHTML=`
+          <p><h2 style="color: rgb(92, 31, 11);">Current Balance : ${search.balance}</h2></p>
+          `;
+     }
+}
+     else{
+          alert('Incorrect password')
+     }
+}
+
+function logout(){
+     localStorage.removeItem('loggedAcNo');
+     alert("Thank you for using S-Bank")
+     window.location='./index.html'
+}
+  </script>
+
+</body>
+
+</html>

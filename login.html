@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+    <!-- css -->
+    <style>
+        
+img{
+    width: 90px;
+    margin-top: 40px;
+}
+.btn{
+    border-radius: 15px;
+    width: 130px;
+    margin-top: 25px;
+}
+.reg{
+margin-top: 200px;
+margin-left: 650px;
+text-align: center;
+width: 260px;
+height: 400px;
+background-color: rgba(42, 11, 11, 0.5);
+box-shadow: indianred;
+border-radius: 15px;
+}
+.d{
+margin-top: 15px;
+color: white;
+}
+
+#ac_No{
+    border-radius: 15px;
+    margin-top: 20px;
+}
+#l_pass{
+    border-radius: 15px;
+    margin-top: 20px;
+}
+/* #pass{
+    border-radius: 15px;
+    margin-top: 20px;
+} */
+a{
+    text-decoration: none;
+    font-size: 3.5mm;
+    
+}
+h4{
+    color: white;
+}
+
+.button {
+    background-color: #2dc8e3; /* Green */
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    width: 190px;
+    height: 50px;
+  }
+    </style>
+
+    <title>Login</title>
+
+</head>
+<body background="https://cdn.pixabay.com/photo/2016/10/09/19/19/coins-1726618_960_720.jpg" style="background-repeat: no-repeat;
+        background-size: cover;">
+    <form class="reg" action="">
+        <div class="d">
+            <img src="https://www.pngitem.com/pimgs/m/531-5313435_bank-png-free-download-vector-bank-logo-png.png" alt="" class="rounded-circle">
+        </div>
+        <div>
+            <h4>S Bank</h4>
+        </div>
+        <div>
+            <input type="number" id="ac_No" placeholder="Account number" required>
+        </div>
+        <div>
+            <input type="password" id="l_pass" placeholder="Password" required>
+        </div>
+        <div>
+           <button type="button" class="btn btn-info" onclick="login()">Login</button>
+        </div>
+        <div class="d">
+            
+           <a style="color: rgb(0, 255, 234);" href="">Forgot password</a> or <a style="color: rgb(0, 255, 234);" href="./registration.html">Sign up</a>
+        </div>
+    </form>
+
+    <!-- script -->
+    <script>
+        function login(){
+    let acno=document.getElementById('ac_No').value;
+    let lpassword=document.getElementById('l_pass').value;
+    // let userrr=localStorage.getItem(JSON.parse('lname'));
+    if(acno==='' && lpassword===''){
+        alert('Enter your account number and password')
+    }
+    else if(acno===''){
+        alert('Enter your account number...')
+    }
+    else if(lpassword===''){
+        alert('Enter your password...')
+    }
+    else if(acno in localStorage){
+        let search=JSON.parse(localStorage.getItem(acno))
+        if(search.password === lpassword){
+        console.log(lpassword);
+        alert("User login successfull.....")
+        window.location = './userac.html'; 
+        localStorage.setItem('loggedAcNo',acno)   
+        }
+        else{
+            alert('Incorrect password')
+        }
+    }
+    else{
+        alert("Incorrect account number");
+    }}
+
+    </script>
+
+</body>
+</html>
